@@ -6,4 +6,20 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Images\2103658.png" />
+    <None Remove="Images\Icon.ico" />
+    <None Remove="Images\Icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

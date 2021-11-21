@@ -5,8 +5,84 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MathGraph"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="550" Width="900"
+        ResizeMode="NoResize"
+        Icon="/Images/Icon.png">
     <Grid>
+        <!--Разделение на столбцы и строки-->
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="91*"/>
+            <ColumnDefinition Width="359*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="13*"></RowDefinition>
+            <RowDefinition Height="13*"></RowDefinition>
+            <RowDefinition Height="241*"/>
+        </Grid.RowDefinitions>
+        <!--Верхняя панель кнопок-->
+        <Menu Height="26" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Новый граф"></MenuItem>
+                <MenuItem Header="Открыть граф"></MenuItem>
+                <MenuItem Header="Сохранить "></MenuItem>
+                <MenuItem Header="Сохранить как..."></MenuItem>
+                <Separator />
+                <MenuItem Header="Выход" ></MenuItem>
+            </MenuItem>
 
+        </Menu>
+        <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
+            <Button Content="Изменить режим" Margin="5 0 5 0" Click="btn_ModeGraph"/>
+            <Button Content="Добавить вершину" Margin="5 0 5 0" Click="btn_AddVertex"/>
+            <Button Content="Удалить вершину" Margin="5 0 5 0" Click="btn_RemoveVertex"/>
+            <Button Content="Добавить ребро" Margin="5 0 5 0" Click="btn_AddEdge"/>
+            <Button Content="Удалить ребро" Margin="5 0 5 0" Click="btn_RemoveEdge"/>
+            <Button Content="Изменить вес ребра" Margin="5 0 5 0" Click="btn_ChangeWeight"/>
+        </StackPanel>
+        <!--Панель элементов-->
+        <!--Полосы прокрутки отображаются только при пропорциональных размерах????-->
+        <Border BorderBrush="Black" BorderThickness="0 0 2 0" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"></Border>
+        <TextBlock Grid.Column="0" Grid.Row="1" FontSize="20" FontFamily="Calibri, Sans Serif" VerticalAlignment="Center" Padding="5 0 0 0">Панель элементов</TextBlock>
+        <DockPanel x:Name="StackTab" Grid.Column="0" Grid.Row="2" Margin="0 0 2 0">
+            <TabControl x:Name="TabControl">
+                <TabItem x:Name="TabControlVertices">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Height="15" Width="15" Fill="DarkMagenta" Margin="0 0 5 0"></Ellipse>
+                            <TextBlock>Вершины</TextBlock>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <TabItem.Content>
+                        <ScrollViewer HorizontalScrollBarVisibility="Visible" >
+                            <StackPanel >
+                                <TextBlock>QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ</TextBlock>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </TabItem.Content>
+                </TabItem>
+                <TabItem x:Name="TabControlEdges">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Height="5" Width="20" Fill="DarkOliveGreen" Margin="0 0 5 0"></Rectangle>
+                            <TextBlock>Рёбра</TextBlock>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <TabItem.Content>
+                        <ScrollViewer HorizontalScrollBarVisibility="Visible" >
+                            <StackPanel>
+                                <TextBlock>QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ</TextBlock>
+                                <TextBlock>QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ</TextBlock>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </TabItem.Content>
+                </TabItem>
+            </TabControl>
+        </DockPanel>
+        <!--Область визуализации-->
+        <Border BorderBrush="Black" BorderThickness="0 0 0 2" Grid.Column="1" Grid.Row="1"></Border>
+        <TextBlock Grid.Column="1" Grid.Row="1" FontSize="20" FontFamily="Calibri, Sans Serif"  VerticalAlignment="Center" Padding="5 0 0 0">Область визуализации</TextBlock>
+        <ScrollViewer Grid.Column="1" Grid.Row="2" HorizontalScrollBarVisibility="Visible">
+            <Frame  Source="WorkPlace.xaml" BorderBrush="LimeGreen" BorderThickness="2"></Frame>
+        </ScrollViewer>
     </Grid>
 </Window>
