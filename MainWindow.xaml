@@ -12,15 +12,17 @@
         <!--Разделение на столбцы и строки-->
         <Grid.ColumnDefinitions >
             <ColumnDefinition Width="91*"/>
-            <ColumnDefinition Width="359*"></ColumnDefinition>
+            <ColumnDefinition Width="255*"></ColumnDefinition>
+            <ColumnDefinition Width="104*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="13*"></RowDefinition>
             <RowDefinition Height="13*"></RowDefinition>
             <RowDefinition Height="241*"/>
         </Grid.RowDefinitions>
+
         <!--Верхняя панель кнопок-->
-        <Menu Height="26" VerticalAlignment="Center" Grid.Column="0" Grid.Row="0">
+        <Menu Height="26" VerticalAlignment="Center" Grid.Column="0">
             <MenuItem Header="Файл">
                 <MenuItem Header="Новый граф"></MenuItem>
                 <MenuItem Header="Открыть граф"></MenuItem>
@@ -32,20 +34,29 @@
 
         </Menu>
         <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
-            <Button Content="Изменить режим" Margin="5 0 5 0" Click="btn_ModeGraph"/>
-            <Button Content="Добавить вершину" Margin="5 0 5 0" Click="btn_AddVertex"/>
-            <Button Content="Удалить вершину" Margin="5 0 5 0" Click="btn_RemoveVertex"/>
-            <Button Content="Добавить ребро" Margin="5 0 5 0" Click="btn_AddEdge"/>
-            <Button Content="Удалить ребро" Margin="5 0 5 0" Click="btn_RemoveEdge"/>
-            <Button Content="Изменить вес ребра" Margin="5 0 5 0" Click="btn_ChangeWeight"/>
+            <!--Изменить режим-->
+            <Button Content="⇄" FontSize="30" Padding="0 -12 0 0" ToolTip="Изменить режим графа" Height="25" MinWidth="25" Margin="5 0 5 0" Click="btn_ModeGraph"/>
+            <!--Добавить вершину-->
+            <Button Content="+V" ToolTip="Добавить вершину" Height="25" MinWidth="25" Margin="5 0 5 0" Click="btn_AddVertex"/>
+            <!--Удалить вершину-->
+            <Button Content="-V" ToolTip="Удалить вершину" Height="25" MinWidth="25" Margin="5 0 5 0" Click="btn_RemoveVertex"/>
+            <!--Добавить ребро-->
+            <Button Content="+E" ToolTip="Добавить ребро" Height="25" MinWidth="25" Margin="5 0 5 0" Click="btn_AddEdge"/>
+            <!--Удалить ребро-->
+            <Button Content="-E" ToolTip="Удалить ребро" Height="25" MinWidth="25" Margin="5 0 5 0" Click="btn_RemoveEdge"/>
+            <!--Изменить вес ребра-->
+            <Button Content="W(E)" ToolTip="Изменить вес ребра" Height="25" MinWidth="25" Margin="5 0 5 0" Click="btn_ChangeWeight"/>
+            <!--Изменить вес ребра-->
+            <Button Content="V=>" ToolTip="Переместить вершину" Height="25" MinWidth="25" Margin="5 0 5 0" Click="btn_MoveVertex"/>
+            <Button Content="М.Дейкстры" ToolTip="Найти кратчайший путь" Height="25" MinWidth="25" Margin="5 0 5 0" Click="btn_Dijkstra"/>
         </StackPanel>
         <!--Панель элементов-->
         <!--Полосы прокрутки отображаются только при пропорциональных размерах????-->
-        <Border BorderBrush="Black" BorderThickness="0 0 2 0" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"></Border>
-        <TextBlock Grid.Column="0" Grid.Row="1" FontSize="20" FontFamily="Calibri, Sans Serif" VerticalAlignment="Center" Padding="5 0 0 0">Панель элементов</TextBlock>
-        <DockPanel x:Name="StackTab" Grid.Column="0" Grid.Row="2" Margin="0 0 2 0">
+        <Border BorderBrush="Black" BorderThickness="0 0 2 0" Grid.Column="0" Grid.RowSpan="3" Margin="0,26,0,0"/>
+        <TextBlock Grid.Column="0" Grid.Row="1" FontSize="20" FontFamily="Calibri, Sans Serif" VerticalAlignment="Center" Padding="5 0 0 0" Height="24">Панель элементов</TextBlock>
+        <DockPanel x:Name="StackTab" Grid.Column="0" Grid.Row="1" Margin="0,26,2,0" Grid.RowSpan="2">
             <TabControl x:Name="TabControl">
-                <TabItem x:Name="TabControlVertices">
+                <TabItem>
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Ellipse Height="15" Width="15" Fill="DarkMagenta" Margin="0 0 5 0"></Ellipse>
@@ -54,13 +65,19 @@
                     </TabItem.Header>
                     <TabItem.Content>
                         <ScrollViewer HorizontalScrollBarVisibility="Visible" >
-                            <StackPanel >
-                                <TextBlock>QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ</TextBlock>
-                            </StackPanel>
+                            <ListView x:Name="TabControlVertices">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="№" Width="25" DisplayMemberBinding="{Binding Number}"/>
+                                        <GridViewColumn Header="Название" Width="80" DisplayMemberBinding="{Binding Name}"/>
+                                        <GridViewColumn Header="Количество" Width="80" DisplayMemberBinding="{Binding Quantity}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
                         </ScrollViewer>
                     </TabItem.Content>
                 </TabItem>
-                <TabItem x:Name="TabControlEdges">
+                <TabItem>
                     <TabItem.Header>
                         <StackPanel Orientation="Horizontal">
                             <Rectangle Height="5" Width="20" Fill="DarkOliveGreen" Margin="0 0 5 0"></Rectangle>
@@ -69,19 +86,25 @@
                     </TabItem.Header>
                     <TabItem.Content>
                         <ScrollViewer HorizontalScrollBarVisibility="Visible" >
-                            <StackPanel>
-                                <TextBlock>QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ</TextBlock>
-                                <TextBlock>QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ</TextBlock>
-                            </StackPanel>
+                            <ListView x:Name="TabControlEdges">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Начало" Width="45" DisplayMemberBinding="{Binding StartVertex}"/>
+                                        <GridViewColumn Header="Вес" Width="60" DisplayMemberBinding="{Binding Weight}"/>
+                                        <GridViewColumn Header="Конец" Width="45" DisplayMemberBinding="{Binding EndVertex}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
                         </ScrollViewer>
                     </TabItem.Content>
                 </TabItem>
             </TabControl>
         </DockPanel>
         <!--Область визуализации-->
-        <Border BorderBrush="Black" BorderThickness="0 0 0 2" Grid.Column="1" Grid.Row="1"></Border>
-        <TextBlock Grid.Column="1" Grid.Row="1" FontSize="20" FontFamily="Calibri, Sans Serif"  VerticalAlignment="Center" Padding="5 0 0 0">Область визуализации</TextBlock>
-        <ScrollViewer Grid.Column="1" Grid.Row="2" HorizontalScrollBarVisibility="Visible">
+        <Border BorderBrush="Black" BorderThickness="0 0 0 2" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,26,0,0" Grid.RowSpan="2"/>
+        <TextBlock Grid.Column="1" Grid.Row="1" FontSize="20" FontFamily="Calibri, Sans Serif"  VerticalAlignment="Center" Padding="5 0 0 0" Height="24">Область визуализации</TextBlock>
+        <TextBlock x:Name="txt_ModeGraph" Grid.Column="2" Grid.Row="1" FontSize="20" FontFamily="Calibri, Sans Serif" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="0 0 5 0" Height="24">Неориентированный</TextBlock>
+        <ScrollViewer Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Visible" Margin="0,26,0,0" Grid.RowSpan="2" >
             <Frame  Source="WorkPlace.xaml" BorderBrush="LimeGreen" BorderThickness="2"></Frame>
         </ScrollViewer>
     </Grid>

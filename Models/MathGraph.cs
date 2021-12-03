@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MathGraph.Models
 {
@@ -8,7 +9,7 @@ namespace MathGraph.Models
         //Сделать так чтобы ребро было либо одно такое, либо использовать уникальные идентификаторы для их различия.
         private List<Vertex> vertices;
         private List<Edge> edges;
-        MODEGRAPH mode;
+        public MODEGRAPH mode;
         public MathGraph(string nameGraph)
         {
             NameGraph = nameGraph;
@@ -23,21 +24,26 @@ namespace MathGraph.Models
             NameGraph = name;
         }
         //  Добавление вершины с индивидуальным именем
-        //  Возвращает true если вершина усппешно добавлена,
-        //  false - если вершина с таким именем существует.
-        public bool AddVertex(string name)
+        //  Возвращает созданный объект, если вершина усппешно добавлена,
+        //  null - если вершина с таким именем существует.
+        public Vertex AddVertex(string name)
         {
+            Vertex v = null;
             if (vertices.Count == 0 ||
                 vertices.Exists((x) => x.GetName().Equals(name)) == false
                 )
             {
-                vertices.Add(new Vertex(name));
-                return true;
+                v = new Vertex(name);
+                vertices.Add(v);
             }
-            return false;
+            return v;
 
         }
-        /// <summary>
+        public Vertex AddVertex(Vertex vertex)
+        {
+            return AddVertex(vertex.GetName());
+        }
+
         /// Удаляет вершину и смежные рёбра по имени этой вершины.
         /// </summary>
         /// <param name="name"> Имя удаляемой вершины.</param>
@@ -58,27 +64,14 @@ namespace MathGraph.Models
         /// <param name="startVertex">Начальная вершина.</param>
         /// <param name="endVertex">Конечная вершина.</param>
         /// <param name="weight">Вес ребра. По умолчанию равен 1.</param>
-        public void AddEdge(Vertex startVertex, Vertex endVertex, decimal weight=1) {
+        public Edge AddEdge(Vertex startVertex, Vertex endVertex, decimal weight=1) {
             Edge e = new Edge(startVertex, endVertex, weight);
             edges.Add(e);
+            startVertex.AddAdjEdge(e);
+            if (mode == MODEGRAPH.UNDIR) endVertex.AddAdjEdge(e);
+            return e;
         }
-        /// <summary>
-        /// ??? Правильно ли, что возвращается строка?
-        /// </summary>
-        /// <param name="nameStartVertex"></param>
-        /// <param name="nameEndVertex"></param>
-        /// <param name="weight"></param>
-        /// <returns></returns>
-        public string AddEdgeByNamesVertices(string nameStartVertex, string nameEndVertex, decimal weight = 1)
-        {
-            Vertex vStart= vertices.Find(x => x.GetName().Equals(nameStartVertex));
-            Vertex vEnd = vertices.Find(x => x.GetName().Equals(nameEndVertex));
-            string resultError = "";
-            if (vStart is null) resultError +=nameStartVertex;
-            if (vEnd is null) resultError +=" "+nameEndVertex;
-            if (resultError.Equals("")) AddEdge(vStart, vEnd, weight);
-            return resultError;
-        }
+        
         public void RemoveEdge(Vertex startVertex, Vertex endVertex,decimal weight)
         {
             Edge e = edges.Find(x => x.getStartVertex().Equals(startVertex) && x.getEndVertex().Equals(endVertex) && x.getWeight().Equals(weight));
@@ -123,5 +116,11 @@ namespace MathGraph.Models
 
             }
         }
+        public void MethodDijkstra()
+        {
+
+        }
+        public List<Vertex> GetVertices() => vertices;
+        public List<Edge> GetEdges() => edges;
     }
 }
