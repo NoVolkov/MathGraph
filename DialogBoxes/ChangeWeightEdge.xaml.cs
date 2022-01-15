@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace MathGraph.DialogBoxes
 {
     /// <summary>
-    /// Логика взаимодействия для RemoveEdge.xaml
+    /// Логика взаимодействия для ChangeWeightEdge.xaml
     /// </summary>
-    public partial class RemoveEdge : Window
+    public partial class ChangeWeightEdge : Window
     {
-        public RemoveEdge()
+        public ChangeWeightEdge()
         {
             InitializeComponent();
         }
@@ -35,9 +35,13 @@ namespace MathGraph.DialogBoxes
         {
             get => txb_VertexNameEnd.Text;
         }
-        public string EdgeWeight
+        public string EdgeOldWeight
         {
-            get => txb_EdgeWeight.Text;
+            get => txb_EdgeOldWeight.Text;
+        }
+        public string EdgeNewWeight
+        {
+            get => txb_EdgeNewWeight.Text;
         }
     }
 }

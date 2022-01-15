@@ -1,14 +1,20 @@
-﻿<Page x:Class="MathGraph.WorkPlace"
+﻿<Page x:Class="MathGraph.Page1"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MathGraph"
+      
+      xmlns:Arrow="clr-namespace:Arrows"
       mc:Ignorable="d" 
       d:DesignHeight="2000" d:DesignWidth="2000"
-      Title="WorkPlace">
-
+      Title="Page1">
+    
     <Grid>
         <Canvas x:Name="FieldPaint"  Background="White" Height="2000" Width="2000" Panel.ZIndex="-10"></Canvas>
+        <!--<Rectangle Height="2000" Width="2000" Fill="White" Panel.ZIndex="-10"></Rectangle>-->
+        
+        <!--<Arrow:Arrow X1="100" Y1="100" X2="600" Y2="600" Stroke="Black" StrokeThickness="10" HeadHeight="15" HeadWidth="15"></Arrow:Arrow>-->
+        <!--<Arrow:ArrowLine StartPoint="0 0" EndPoint="600 600" Stroke="Red" Fill="Black" StrokeThickness="10"></Arrow:ArrowLine>-->
     </Grid>
 </Page>

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Media;
 
 namespace MathGraph.Models
 {
@@ -10,11 +11,15 @@ namespace MathGraph.Models
         public Point point { get; set; }
         public int Quantity { get; set; }
         private List<Edge> adjacentEdges;
+        public Brush color;
+        public decimal A;
         public Vertex(string name)
         {
             this.Name = name;
             adjacentEdges = new List<Edge>();
             Quantity = 0;
+            point = new Point(100, 100);
+            color = new SolidColorBrush(Colors.Aquamarine);
         }
         public void SetName(string name)
         {
@@ -28,6 +33,11 @@ namespace MathGraph.Models
         {
             adjacentEdges.Add(edge);
             Quantity++;
+        }
+        public void RemoveAdjEdge(Edge edge)
+        {
+            adjacentEdges.Remove(edge);
+            Quantity--;
         }
         public List<Edge> GetAdjEdges()=>adjacentEdges;
     }

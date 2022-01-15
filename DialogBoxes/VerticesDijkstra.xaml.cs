@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace MathGraph.DialogBoxes
 {
     /// <summary>
-    /// Логика взаимодействия для RemoveEdge.xaml
+    /// Логика взаимодействия для VerticesDijkstra.xaml
     /// </summary>
-    public partial class RemoveEdge : Window
+    public partial class VerticesDijkstra : Window
     {
-        public RemoveEdge()
+        public VerticesDijkstra()
         {
             InitializeComponent();
         }
@@ -34,10 +34,6 @@ namespace MathGraph.DialogBoxes
         public string NameEnd
         {
             get => txb_VertexNameEnd.Text;
-        }
-        public string EdgeWeight
-        {
-            get => txb_EdgeWeight.Text;
         }
     }
 }
